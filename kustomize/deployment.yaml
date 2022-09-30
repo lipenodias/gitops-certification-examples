@@ -29,7 +29,9 @@ spec:
             runAsGroup: 1000
           env:
             - name: DD_TAGS
-              value: Value defined by Kustomize
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['dd_tags']
           volumeMounts:
             - name: logs
               mountPath: /var/lib/nginx/logs/
