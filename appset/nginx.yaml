@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: clusters-nginx
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: poc
+        url: https://kubernetes.default.svc
+        dd_tag: "env:staging company:petlove team:devteam"
+  template:
+    metadata:
+      name: 'nginx-{{cluster}}'
+      labels:
+        env: prod
+        company: test
+        billing: sre
+        product: cicd
+        app-name: argocd-nginx
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/lipenodias/gitops-certification-examples.git'
+        path: kustomize
+        targetRevision: HEAD
+        kustomize:
+          nameSuffix: '-{{cluster}}'
+          commonAnnotations:
+            dd_tags: '{{dd_tag}}'
+      destination:
+        server: '{{url}}'
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
