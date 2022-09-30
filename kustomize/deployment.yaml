@@ -31,7 +31,7 @@ spec:
             - name: DD_TAGS
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.labels['dd_tags']
+                  fieldPath: metadata.annotations['dd_tags']
           volumeMounts:
             - name: logs
               mountPath: /var/lib/nginx/logs/
