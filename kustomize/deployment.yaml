@@ -27,6 +27,9 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
+          env:
+            - name: DD_TAGS
+              value: Value defined by Kustomize
           volumeMounts:
             - name: logs
               mountPath: /var/lib/nginx/logs/
