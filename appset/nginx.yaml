@@ -26,7 +26,6 @@ spec:
         path: kustomize
         targetRevision: HEAD
         kustomize:
-          nameSuffix: '-{{cluster}}'
           commonAnnotations:
             dd_tags: '{{dd_tag}}'
       destination:
