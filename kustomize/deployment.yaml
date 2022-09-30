@@ -27,11 +27,6 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
-          env:
-            - name: DD_TAGS
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.annotations['dd_tags']
           volumeMounts:
             - name: logs
               mountPath: /var/lib/nginx/logs/
